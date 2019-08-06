@@ -1,4 +1,3 @@
 botogram2
 requests
-json
 beautifulsoup4
