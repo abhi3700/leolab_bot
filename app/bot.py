@@ -67,7 +67,8 @@ def setbreed_command(chat, message, args):
 @bot.process_message
 def button_messages_are_like_normal_messages(chat, message):
     if message.text:
-        chat.send("'You wrote \'{text}\'".format(text= message.text))
+        text_in = message.text.lower()
+        chat.send("'You wrote \'{text}\'".format(text= text_in))
 
         # find the root phoneno. if username is available in REDIS DB
         key_phone = ""
@@ -88,7 +89,7 @@ def button_messages_are_like_normal_messages(chat, message):
 
                 words = []  # intialize
 
-                words = message.text.split()    # if contains space or not, it will split the words into an array
+                words = text_in.split()    # if contains space or not, it will split the words into an array
                 sugg_list = check(sentence, words)
                 # chat.send("suggestion list: {sugg_list}".format(sugg_list= sugg_list))    # for DEBUG
 
@@ -107,7 +108,7 @@ def button_messages_are_like_normal_messages(chat, message):
                         chat.send("SORRY! Please, try again via /setbreed command.")
 
                 else:          # based on the custom list
-                    r.set(key_phone, json.dumps(dict(username= message.sender.username, breed_choice= message.text)))
+                    r.set(key_phone, json.dumps(dict(username= message.sender.username, breed_choice= text_in)))
                     chat.send("Okay! the breed is saved now.")
                     # chat.send(sugg_list)
             else:
