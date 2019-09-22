@@ -70,10 +70,10 @@ print(r.keys())
 
 # -----------------------------------------------------------------------------
 """print all keys"""
-for k in r.keys():
-    k_decoded = k.decode('utf-8')
-    # print(k_decoded)
-    print(json.loads(r.get(k_decoded).decode('utf-8')))
+# for k in r.keys():
+#     k_decoded = k.decode('utf-8')
+#     # print(k_decoded)
+#     print(json.loads(r.get(k_decoded).decode('utf-8')))
     # print(json.loads(r.get(k_decoded).decode('utf-8'))['username'])
     # print(json.loads(r.get(k_decoded).decode('utf-8'))['breed_choice'])
 # print(r.keys())
