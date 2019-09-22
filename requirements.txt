@@ -1,2 +1,4 @@
 botogram2
+redis
 requests
+pyspellchecker
