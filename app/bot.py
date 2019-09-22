@@ -107,12 +107,14 @@ def button_messages_are_like_normal_messages(chat, message):
                         chat.send('Probable words: {word}'.format(word= spell.candidates(word)))
                         chat.send("SORRY! Please, try again via /setbreed command.")
 
-                else:          # based on the custom list
+                elif len(sugg_list):          # based on the custom list
                     r.set(key_phone, json.dumps(dict(username= message.sender.username, breed_choice= text_in)))
-                    chat.send("Okay! the breed is saved now.")
+                    chat.send("Okay! the breed is saved now. \nNow, you can see its images via /show command.")
                     # chat.send(sugg_list)
+                else:
+                    chat.send("SORRY! the word doesn\'t exist in our breeds list.\nPlease, try again via /setbreed command.")
             else:
-                chat.send('Server Error')
+                chat.send('Connection ERROR! Please try again later.\nAlso, you can raise query at @abhi3700')
         else:
             chat.send("Please, share the phone no. first via /sharephone.")
 
@@ -179,6 +181,18 @@ def show_command(chat, message, args):
             chat.send('SORRY! Server problem. Please raise the query at @abhi3700.')
     else:
         chat.send("Please, share the phone no. first via /sharephone")
+
+# ===============================================Show images=================================================
+@bot.command("list_breeds")
+def list_breeds_command(chat, message, args):
+    """List all the breeds of dog"""
+    response = requests.get(Dog_API_URL_breedslist, verify= False)
+    response_json = response.json()
+
+    if response_json['status'] == 'success':
+        chat.send("The breeds list (in Alphabetical order)...\n----------------------------------------------------\n{breeds_list}".format(breeds_list= list(response_json['message'].keys())))
+    else:
+        chat.send('Connection ERROR! Please try again later.\nAlso, you can raise query at @abhi3700')
 
 # ================================================MAIN===========================================================================    
 if __name__ == "__main__":

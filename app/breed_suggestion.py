@@ -29,7 +29,7 @@ response_json = response.json()
 
 if response_json['status'] == 'success':
     sentence = list(response_json['message'].keys())
-    text_input = 'labrdr'    # input
+    text_input = 'road'    # input
     words = text_input.split()  # if contains space or not, it will split the words into an array
 
     sugg_list = check(sentence, words)
@@ -47,9 +47,11 @@ if response_json['status'] == 'success':
             # Get a list of `likely` options
             print(f'Probable words: {spell.candidates(word)}')
 
-    else:          # based on the custom list
+    elif len(sugg_list):          # based on the custom list
         print("Correct! the word is found.")
         # print(sugg_list)
+    else:
+        print('The word doesn\'t exist in our database.')
 else:
     print('Server Error')
 
