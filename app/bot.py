@@ -7,7 +7,7 @@ from input import *
 
 
 bot = botogram.create(API_key)
-bot.about = "This is a Dog Bot.\nIt gives random images of Dog based on preferred breed by user."
+bot.about = "This is a Dog Bot.\nIt shows random images of Dog based on preferred breed by user."
 bot.owner = "@abhi3700"
 # -------------------------------------------------------Redis DB------------------------------------------------------------------------
 # define Redis database
