@@ -198,6 +198,7 @@ def viewbreed_command(chat, message, args):
     # chat.send('phone no. {phone}'.format(phone=key_phone))  # for DEBUG
     if key_phone != "":
         chat.send("Your saved breed is: \'{breed_choice}\'".format(breed_choice= json.loads(r.get(key_phone).decode('utf-8'))['breed_choice']))
+        chat.send('Change breed via /setbreed')
     else:
         chat.send("Please, share the phone no. first via /sharephone")
 
