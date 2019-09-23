@@ -29,7 +29,7 @@ response_json = response.json()
 
 if response_json['status'] == 'success':
     sentence = list(response_json['message'].keys())
-    text_input = 'road'    # input
+    text_input = 'germanshepherd'    # input
     words = text_input.split()  # if contains space or not, it will split the words into an array
 
     sugg_list = check(sentence, words)
@@ -38,7 +38,11 @@ if response_json['status'] == 'success':
     misspelled = spell.unknown(words)
     print(misspelled)
 
-    if len(misspelled):                 # based on dictionary
+
+    if len(sugg_list):          # based on the custom list
+        print("Correct! the word is found.")
+        # print(sugg_list)
+    elif len(misspelled):                 # based on dictionary
         print("Please check the spelling...")
         for word in misspelled:
             # Get the one `most likely` answer
@@ -46,10 +50,6 @@ if response_json['status'] == 'success':
 
             # Get a list of `likely` options
             print(f'Probable words: {spell.candidates(word)}')
-
-    elif len(sugg_list):          # based on the custom list
-        print("Correct! the word is found.")
-        # print(sugg_list)
     else:
         print('The word doesn\'t exist in our database.')
 else:

@@ -97,7 +97,12 @@ def button_messages_are_like_normal_messages(chat, message):
                 misspelled = spell.unknown(words)
                 # chat.send("misspelled: {misspelled}".format(misspelled= misspelled))    # for DEBUG
 
-                if len(misspelled):                 # based on dictionary
+                if len(sugg_list):          # based on the custom list
+                    r.set(key_phone, json.dumps(dict(username= message.sender.username, breed_choice= text_in)))
+                    chat.send("Okay! the breed is saved now. \nNow, you can see its images via /show command.")
+                    # chat.send(sugg_list)
+                
+                elif len(misspelled):                 # based on dictionary
                     chat.send("Please check the spelling...")
                     for word in misspelled:
                         # Get the one `most likely` answer
@@ -107,10 +112,6 @@ def button_messages_are_like_normal_messages(chat, message):
                         chat.send('Probable words: {word}'.format(word= spell.candidates(word)))
                         chat.send("SORRY! Please, try again via /setbreed command.")
 
-                elif len(sugg_list):          # based on the custom list
-                    r.set(key_phone, json.dumps(dict(username= message.sender.username, breed_choice= text_in)))
-                    chat.send("Okay! the breed is saved now. \nNow, you can see its images via /show command.")
-                    # chat.send(sugg_list)
                 else:
                     chat.send("SORRY! the word doesn\'t exist in our breeds list.\nPlease, try again via /setbreed command.")
             else:
@@ -177,14 +178,15 @@ def show_command(chat, message, args):
         if response_json['status'] == 'success':
             chat.send(response_json['message'])
             # chat.send("https://random.dog/woof.json?filter=mp4,webm")
+            chat.send('For more, change your breed via /setbreed')
         else:
             chat.send('SORRY! Server problem. Please raise the query at @abhi3700.')
     else:
         chat.send("Please, share the phone no. first via /sharephone")
 
 # ===============================================Show images=================================================
-@bot.command("list_breeds")
-def list_breeds_command(chat, message, args):
+@bot.command("listbreed")
+def listbreed_command(chat, message, args):
     """List all the breeds of dog"""
     response = requests.get(Dog_API_URL_breedslist, verify= False)
     response_json = response.json()
