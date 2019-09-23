@@ -183,8 +183,25 @@ def show_command(chat, message, args):
             chat.send('SORRY! Server problem. Please raise the query at @abhi3700.')
     else:
         chat.send("Please, share the phone no. first via /sharephone")
+# ===============================================View Breed choice=================================================
+@bot.command("viewbreed")
+def viewbreed_command(chat, message, args):
+    """View your saved breed"""
+    # find the root phoneno. if username is available in REDIS DB
+    key_phone = ""
+    for k in r.keys():
+        # chat.send(k.decode('utf-8'))
+        dict_nested2_val2 = json.loads(r.get(k.decode('utf-8')))
+        if dict_nested2_val2['username'] == message.sender.username:
+            key_phone = k.decode('utf-8')
 
-# ===============================================Show images=================================================
+    # chat.send('phone no. {phone}'.format(phone=key_phone))  # for DEBUG
+    if key_phone != "":
+        chat.send("Your saved breed is: \'{breed_choice}\'".format(breed_choice= json.loads(r.get(key_phone).decode('utf-8'))['breed_choice']))
+    else:
+        chat.send("Please, share the phone no. first via /sharephone")
+
+# ===============================================List Breeds=================================================
 @bot.command("listbreed")
 def listbreed_command(chat, message, args):
     """List all the breeds of dog"""
