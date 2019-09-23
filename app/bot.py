@@ -203,8 +203,8 @@ def viewbreed_command(chat, message, args):
         chat.send("Please, share the phone no. first via /sharephone")
 
 # ===============================================List Breeds=================================================
-@bot.command("listbreed")
-def listbreed_command(chat, message, args):
+@bot.command("listbreeds")
+def listbreeds_command(chat, message, args):
     """List all the breeds of dog"""
     response = requests.get(Dog_API_URL_breedslist, verify= False)
     response_json = response.json()
