@@ -1,2 +1,5 @@
 - show random images w/o user auth via 'https://dog.ceo/api/breeds/image/random'
+- fix this issue
+  e.g. `life` - not saved - OK
+       'labra' - saved - not OK
 - add 'sub_breed' feature
