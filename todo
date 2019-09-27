@@ -1,1 +1,2 @@
+- show random images w/o user auth via 'https://dog.ceo/api/breeds/image/random'
 - add 'sub_breed' feature
